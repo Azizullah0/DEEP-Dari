@@ -12,10 +12,7 @@ Eight-class **emotion** classification for Dari social media (`Hope`, `Happy`, `
 
 Training is driven by `scripts/train.py` and ablation runners. Live labeling lives under [`deployment/`](deployment/README.md) (FastAPI + bilingual **English/Dari** dashboard).
 
-**Dashboard — Fear/Anger review queue**
-
-![Fear/Anger review queue](deployment/screenshots/dash_en_review.png)
-
+**Dashboard**
 ![Run overview](deployment/screenshots/dash_en_overview.png)
 
 ## Repository Overview
