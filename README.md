@@ -12,8 +12,13 @@ Eight-class **emotion** classification for Dari social media (`Hope`, `Happy`, `
 
 Training is driven by `scripts/train.py` and ablation runners. Live labeling lives under [`deployment/`](deployment/README.md) (FastAPI + bilingual **English/Dari** dashboard).
 
-**Dashboard**
+**Dashboard — Run overview (emotion distribution after a labeling job):
+
 ![Run overview](deployment/screenshots/dash_en_overview.png)
+
+Fear/Anger review queue** (the human review interface)
+
+![Fear/Anger review queue](deployment/screenshots/dash_en_review.png)
 
 ## Repository Overview
 
@@ -70,6 +75,7 @@ uvicorn deployment.api:app --host 0.0.0.0 --port 8000
 ## Data and Directory Configuration
 
 Datasets are not included in the repository. Path resolution is handled in `config/paths.py`, with support for the following environment variables:
+Note: These variable names are legacy names from an earlier version of the project, when it was called Sentiment_Analysis. The project is emotion classification, not sentiment analysis. The names are kept so existing setups keep working.
 
 - `SENTIMENT_STORAGE_ROOT`: location for saved models, checkpoints, and experiment outputs
 - `SENTIMENT_DATA_ROOT`: location of the project datasets
