@@ -73,9 +73,9 @@ uvicorn deployment.api:app --host 0.0.0.0 --port 8000
 ```
 
 ## Data and Directory Configuration
-
-Datasets are not included in the repository. Path resolution is handled in `config/paths.py`, with support for the following environment variables:
 Note: These variable names are legacy names from an earlier version of the project, when it was called Sentiment_Analysis. The project is emotion classification, not sentiment analysis. The names are kept so existing setups keep working.
+Datasets are not included in the repository. Path resolution is handled in `config/paths.py`, with support for the following environment variables:
+
 
 - `SENTIMENT_STORAGE_ROOT`: location for saved models, checkpoints, and experiment outputs
 - `SENTIMENT_DATA_ROOT`: location of the project datasets
