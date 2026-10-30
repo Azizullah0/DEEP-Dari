@@ -1,6 +1,6 @@
-# DEEP-Dari — Persian/Dari Emotion Classification
+# DEEP-Dari — Dari emotion classification
 
-Eight-class emotion classification for Dari/Persian social media (`Hope`, `Happy`, `Neutral`, `Surprise`, `Disgust`, `Sad`, `Anger`, `Fear`) on top of [`HooshvareLab/bert-base-parsbert-uncased`](https://huggingface.co/HooshvareLab/bert-base-parsbert-uncased), with culturally grounded minority-class augmentation and a YouTube monitoring deployment.
+Eight-class **emotion** classification for Dari social media (`Hope`, `Happy`, `Neutral`, `Surprise`, `Disgust`, `Sad`, `Anger`, `Fear`) on top of [`HooshvareLab/bert-base-parsbert-uncased`](https://huggingface.co/HooshvareLab/bert-base-parsbert-uncased), with culturally grounded minority-class augmentation and a YouTube monitoring deployment. This is not binary sentiment analysis.
 
 | Best model (A4) | Value |
 |-----------------|------:|
@@ -8,9 +8,15 @@ Eight-class emotion classification for Dari/Persian social media (`Hope`, `Happy
 | Macro-F1 | **0.857** |
 | Fear F1 | **0.950** |
 
-**Cite:** see [`CITATION.cff`](CITATION.cff) (conference paper under review; manuscript not in this repo)
+**Cite:** see [`CITATION.cff`](CITATION.cff). Lead-author paper accepted at iiWAS 2026 (manuscript not in this repo). License: [MIT](LICENSE).
 
-Training is driven by `scripts/train.py` and ablation runners; live labeling lives under [`deployment/`](deployment/README.md) (FastAPI + bilingual EN/FA dashboard).
+Training is driven by `scripts/train.py` and ablation runners. Live labeling lives under [`deployment/`](deployment/README.md) (FastAPI + bilingual **English/Dari** dashboard).
+
+**Dashboard — Fear/Anger review queue**
+
+![Fear/Anger review queue](deployment/screenshots/dash_en_review.png)
+
+![Run overview](deployment/screenshots/dash_en_overview.png)
 
 ## Repository Overview
 
@@ -38,7 +44,7 @@ There is **one** training script (`scripts/train.py`). The other `scripts/*.py` 
 **Shared code**
 - `config/paths.py` — dataset / model / output paths
 - `augmentations/` — Fear, Surprise/Anger/Disgust templates; NLLB back-translation
-- `deployment/` — YouTube labeling API + bilingual EN/FA dashboard ([deployment/README.md](deployment/README.md))
+- `deployment/` — YouTube labeling API + bilingual English/Dari dashboard ([deployment/README.md](deployment/README.md))
 
 ## Requirements
 
@@ -61,7 +67,7 @@ Dashboard (after `npm install && npm run build` in `deployment/dashboard`):
 ```bash
 export YOUTUBE_API_KEY=your-key
 uvicorn deployment.api:app --host 0.0.0.0 --port 8000
-# open http://localhost:8000  — EN/FA toggle in the header
+# open http://localhost:8000  — English/Dari toggle in the header (labelled EN/FA in the UI)
 ```
 
 ## Data and Directory Configuration
@@ -147,9 +153,9 @@ python scripts/train.py --mode full_8label_all_aug --batch-size 16 --max-length 
 
 Trained models are stored under `Models/`, while experiment-specific runs are written to `outputs/`. Each run saves metadata and evaluation results to make comparisons between experiments easier.
 
-## Dataset Audit
+## Dataset audit
 
-Before updating thesis tables, verify row counts, label distributions, duplicates, and merge integrity:
+Check row counts, label distributions, duplicates, and merge integrity:
 
 ```bash
 python scripts/audit_datasets.py
@@ -157,14 +163,10 @@ python scripts/audit_datasets.py --group ablation
 python scripts/audit_datasets.py --strict
 ```
 
-The script prints a **Table 1 helper** with A0–A5 row counts from disk and validation checks (e.g. A5 = A4 + BT files, confidence split sums).
+The script prints A0–A5 row counts from disk and validation checks (e.g. A5 = A4 + back-translation files). Two known outcomes are expected and do not require rebuilding the datasets:
 
-**Interpreting validation results:** Two outcomes that previously showed as `FAIL` are expected for this project and do not require dataset rebuilds:
-
-- **`[EXPECTED] Ablation row-count monotonicity from A2`** — A2 (394,476) can be smaller than A1 (400,691) because `merge_augmented_datasets.py` deduplicates when adding Surprise; A2–A5 should stay duplicate-free.
-- **`[WARN] Duplicate texts in pseudo-labeled base`** — A0/A1 and confidence splits inherit ~15,215 duplicate normalized texts from the pseudo-labeled base. Document in the thesis; do not dedupe and re-train completed ablation runs.
-
-Verified Table 1 row counts live in local notes (not published); use `scripts/audit_datasets.py` for on-disk checks.
+- Ablation row counts need not increase at every step: A2 (394,476) can be smaller than A1 (400,691) because merging Surprise deduplicates.
+- The pseudo-labeled base contains about 15,215 duplicate normalized texts; A0/A1 and the confidence splits inherit them. Do not deduplicate and retrain completed ablation runs.
 
 ## Ablation Study
 
@@ -370,4 +372,4 @@ By default, `scripts/predict.py` loads the model from `PATHS["fine_tuned_model"]
 
 ## License
 
-Academic use only.
+[MIT](LICENSE).

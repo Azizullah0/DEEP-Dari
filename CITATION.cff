@@ -7,7 +7,7 @@ title: "DEEP-Dari: Persian/Dari emotion classification with ParsBERT and YouTube
 authors:
   - family-names: Massomy
     given-names: Azizullah
-repository-code: "https://github.com/Azizullah0/Sentiment_Analysis"
+repository-code: "https://github.com/Azizullah0/DEEP-Dari"
 license: MIT
 keywords:
   - Dari
@@ -27,4 +27,4 @@ preferred-citation:
       given-names: Christian
   title: "DEEP-Dari: Emotion Classification for Dari Social Media"
   year: 2026
-  notes: "Manuscript under peer review (iiWAS 2026)."
+  notes: "Accepted at iiWAS 2026."

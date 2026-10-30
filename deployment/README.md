@@ -1,6 +1,6 @@
 # Deployment — YouTube labeling + DEEP-Dari dashboard
 
-Separate package for serving DEEP-Dari, labeling **real public YouTube comments**, and browsing results in a bilingual **EN / FA (RTL)** dashboard. Training code stays under `scripts/` and `augmentations/`.
+Separate package for serving DEEP-Dari, labeling **real public YouTube comments**, and browsing results in a bilingual **English/Dari (RTL)** dashboard. The UI language toggle is labelled EN/FA. Training code stays under `scripts/` and `augmentations/`.
 
 ## Setup
 
